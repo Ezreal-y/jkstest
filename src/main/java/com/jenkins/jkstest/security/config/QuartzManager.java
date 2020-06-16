@@ -1,5 +1,6 @@
 package com.jenkins.jkstest.security.config;
 
+import com.jenkins.jkstest.security.utils.SpringContextUtil;
 import com.jenkins.jkstest.security.utils.SysDateUtil;
 import com.jenkins.jkstest.system.entity.SysJobs;
 import com.jenkins.jkstest.system.service.ISysJobsService;
@@ -25,10 +26,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.quartz.JobBuilder.newJob;
 
@@ -105,7 +103,7 @@ public class QuartzManager  {
 	 */
 	@SuppressWarnings("unchecked")
 	public static void addJob(String jobName, String jobGroupName, String triggerName, String triggerGroupName, Class jobClass,
-			String time) {
+							  String time) {
 		try {
 			Scheduler sched = gSchedulerFactory.getScheduler();
 			JobDetail job = newJob(jobClass).withIdentity(jobName, jobGroupName).build();
@@ -193,7 +191,7 @@ public class QuartzManager  {
 		JobKey jobKey = JobKey.jobKey(jobName, JOB_GROUP_NAME);
 		try {
 			Scheduler sched = gSchedulerFactory.getScheduler();
-			Trigger trigger = (Trigger) sched.getTrigger(triggerKey);
+			Trigger trigger = sched.getTrigger(triggerKey);
 			if (trigger == null) {
 				return;
 			}
@@ -276,6 +274,8 @@ public class QuartzManager  {
 		try {
 			Scheduler sched = gSchedulerFactory.getScheduler();
 			if (!sched.isShutdown()) {
+				Collection<Scheduler> allSchedulers = gSchedulerFactory.getAllSchedulers();
+				log.info("共计[{}]个任务关闭",allSchedulers.size());
 				sched.shutdown();
 			}
 		} catch (Exception e) {
@@ -288,8 +288,8 @@ public class QuartzManager  {
 	 */
 
 	public static void init() {
-		ApplicationContext ctx = new ClassPathXmlApplicationContext("application.xml");
-		ISysJobsService jobsBean = ctx.getBean(ISysJobsService.class);
+
+		ISysJobsService jobsBean = (ISysJobsService) SpringContextUtil.getBean(ISysJobsService.class);
 		List<SysJobs> allTaskList = jobsBean.list();
 		int count = 0;
 		for (SysJobs job1 : allTaskList) {
