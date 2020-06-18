@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#BUILD_ID=DONTKILLME #后台执行
+BUILD_ID=DONTKILLME #后台执行
 
 #查询jar包pid
 jks_test_pid=$(ps -ef|grep jkstest-0.0.1-SNAPSHOT.jar|grep -v grep | awk '{print $2}')
