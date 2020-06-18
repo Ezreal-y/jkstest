@@ -21,7 +21,7 @@ fi
 stop
 
 sleep 5s
-
+pwd
 #发布jar服务
 function start(){
   cd /home/soul/lgy/jksjar
