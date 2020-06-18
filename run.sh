@@ -12,7 +12,7 @@ cp -r /var/lib/jenkins/workspace/d/target/jkstest-0.0.1-SNAPSHOT.jar  /home/soul
 function stop(){
 if [ -n "$jks_test_pid" ]
   then
-  	echo "pid进程 :$pid"
+  	echo "pid进程 :$jks_test_pid"
   	kill -9 $jks_test_pid
  else
     echo "进程没有启动"
@@ -26,6 +26,7 @@ sleep 5s
 function start(){
   cd /home/soul/lgy/jksjar
   nohup java -jar jkstest-0.0.1-SNAPSHOT.jar &
+  echo "项目启动完成"
 }
 
 start
