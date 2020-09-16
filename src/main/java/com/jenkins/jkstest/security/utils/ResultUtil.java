@@ -5,6 +5,7 @@ import com.jenkins.jkstest.security.common.enums.ApiStatus;
 import com.jenkins.jkstest.security.beans.ResultBean;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.jdbc.Null;
 
 import javax.servlet.ServletResponse;
 import java.io.PrintWriter;
@@ -79,14 +80,26 @@ public class ResultUtil<T> implements Serializable {
         resultMap.put("code", code);
         return resultMap;
     }
+
     public static <T> ResultBean<T> ok() {
-        return restResult(null,ApiStatus.SUCCESS);
+        return restResult(null, ApiStatus.SUCCESS);
     }
+
     public static <T> ResultBean<T> ok(T data) {
         return restResult(data, ApiStatus.SUCCESS);
     }
+
+    public static <T> ResultBean<T> fail() {
+        return restResult(null, ApiStatus.FAILURE);
+    }
+
     public static <T> ResultBean<T> fail(T data) {
         return restResult(data, ApiStatus.FAILURE);
+    }
+
+
+    public static <T> ResultBean<T> restResult(ApiStatus status) {
+        return restResult(null, status.getCode(), status.getMsg());
     }
 
     public static <T> ResultBean<T> restResult(T data, ApiStatus status) {
@@ -96,8 +109,10 @@ public class ResultUtil<T> implements Serializable {
     private static <T> ResultBean restResult(T data, long code, String msg) {
         ResultBean apiResult = new ResultBean<>();
         apiResult.setCode(code);
-        apiResult.setData(data);
         apiResult.setMsg(msg);
+        if (data != null) {
+            apiResult.setData(data);
+        }
         return apiResult;
     }
 }

@@ -10,9 +10,8 @@ import java.util.Date;
  * @description
  */
 public class SysDateUtil {
-    private static final String CRON_DATE_FORMAT = "ss mm HH dd MM ? yyyy";
-    private final static String yyyy_MM_DDHHmmssStr = "yyyy-MM-dd HH:mm:ss";
-
+    public static final String CRON_DATE_FORMAT = "ss mm HH dd MM ? yyyy";
+    public static final String yyyy_MM_DDHHmmssStr = "yyyy-MM-dd HH:mm:ss";
     /**
      * cron表达式转为日期 返回的是Date
      *
