@@ -1,19 +1,15 @@
-package com.jenkins.jkstest.system.taskjob;
+package com.jenkins.jkstest.system.taskjob.jobs;
 
 import com.jenkins.jkstest.security.utils.SpringContextUtil;
 import com.jenkins.jkstest.system.entity.SysJobs;
 import com.jenkins.jkstest.system.service.ISysJobsService;
+import com.jenkins.jkstest.system.taskjob.BaseJob;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.DisallowConcurrentExecution;
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author l
@@ -22,7 +18,7 @@ import java.util.List;
  */
 @DisallowConcurrentExecution
 @Slf4j
-public class TestJob implements Job {
+public class TestJob implements BaseJob {
 
 
     @Override

@@ -1,6 +1,8 @@
 package com.jenkins.jkstest.system.vo;
 
 import com.jenkins.jkstest.system.entity.SysJobs;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,6 +13,7 @@ import java.io.Serializable;
  * @description
  */
 @Data
+@ApiModel(description = "定时任务的属性", value = "任务vo")
 public class JobsVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -18,11 +21,13 @@ public class JobsVO implements Serializable {
     /**
      * 任务ID
      */
+
     private String jobId;
 
     /**
      * 操作员
      */
+
     private String staffId;
 
     /**
@@ -53,6 +58,7 @@ public class JobsVO implements Serializable {
     /**
      * 指定时间或者第一次延时
      */
+    @ApiModelProperty(value="时间",name="jobCron",example="0 16 17 15 6 ? 2020")
     private String jobCron;
 
     /**
@@ -68,16 +74,19 @@ public class JobsVO implements Serializable {
     /**
      * 任务状态 0禁用 1启用 2删除
      */
+    @ApiModelProperty(value="任务状态 0禁用 1启用 2删除",name="jobStatus")
     private String jobStatus;
 
     /**
      * 任务类
      */
+    @ApiModelProperty(value="任务类",name="jobClass")
     private String jobClass;
 
     /**
      * 任务描述
      */
+    @ApiModelProperty(value="任务描述",name="jobDesc")
     private String jobDesc;
 
     /**

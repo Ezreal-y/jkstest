@@ -1,6 +1,7 @@
 package com.jenkins.jkstest.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -17,7 +18,6 @@ import java.io.Serializable;
  * https://blog.csdn.net/zhanlanmg/article/details/50392266
  */
 @Data
-//@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class SysJobs implements Serializable {
 

@@ -7,12 +7,12 @@ import com.jenkins.jkstest.system.entity.SysJobs;
 import com.jenkins.jkstest.system.mapper.SysJobsMapper;
 import com.jenkins.jkstest.system.service.ISysJobsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.jenkins.jkstest.system.taskjob.TestJob;
+import com.jenkins.jkstest.system.taskjob.jobs.TestJob;
 import com.jenkins.jkstest.system.vo.JobsVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -50,18 +50,24 @@ public class SysJobsServiceImpl extends ServiceImpl<SysJobsMapper, SysJobs> impl
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void setJob(JobsVO jobsVO) {
         //jobsVO.getJobClass();
-        SysJobs sysJobs =new SysJobs();
-        BeanUtils.copyProperties(jobsVO,sysJobs);
+        SysJobs sysJobs = new SysJobs();
+        BeanUtils.copyProperties(jobsVO, sysJobs);
         sysJobs.setCreateTime(System.currentTimeMillis());
+        sysJobs.setJobClass("TestJob");
+        sysJobs.setParam("param");
+        //sysJobs.setTriggerName();
+
         String jobCron = jobsVO.getJobCron();
-        QuartzManager.removeJob(sysJobs.getJobName());
-        // 添加定时任务 默认任务组 默认触发器组
-        //QuartzManager1.addJob(jobName, QuartzJobFactory.class, cron, job);
-        QuartzManager.addJob(sysJobs.getJobName(), "1jobgroup", "1trigger", "1Group", TestJob.class, jobCron);
         int insert = baseMapper.insert(sysJobs);
         log.info("添加任务");
+        // 删除已有的定时任务
+        QuartzManager.removeJob(sysJobs.getJobName());
+        // 添加定时任务 默认任务组 默认触发器组
+        QuartzManager.addJob(sysJobs.getJobName(), "1jobgroup", "1trigger", "1Group", TestJob.class, jobCron);
+
     }
 
 
@@ -85,7 +91,7 @@ public class SysJobsServiceImpl extends ServiceImpl<SysJobsMapper, SysJobs> impl
         job.setJobType("1");
         job.setJobStatus("1");
         job.setJobGroup("MY_JOBGROUP_NAME");
-        job.setJobDesc("定时导出日志");
+        job.setJobDesc("description");
         job.setParam("TestJob");
         job.setIp(request.getRemoteAddr());
         job.setCreateTime(System.currentTimeMillis());

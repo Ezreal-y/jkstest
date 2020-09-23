@@ -7,5 +7,5 @@ import org.quartz.Job;
  * @date 2020/6/15 17:38
  * @description
  */
-public interface BaseJob  {
+public interface BaseJob extends Job  {
 }
