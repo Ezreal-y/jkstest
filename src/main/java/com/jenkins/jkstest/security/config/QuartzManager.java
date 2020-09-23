@@ -57,7 +57,7 @@ public class QuartzManager  {
 	 * @param jobName
 	 *            任务名
 	 * @param cls
-	 *            任务
+	 *            任务类
 	 * @param time
 	 *            时间设置，参考quartz说明文档 qgw 2016年1月21日 下午3:30:10 ^_^
 	 */
@@ -288,7 +288,6 @@ public class QuartzManager  {
 	 */
 
 	public static void init() {
-
 		ISysJobsService jobsBean = (ISysJobsService) SpringContextUtil.getBean(ISysJobsService.class);
 		List<SysJobs> allTaskList = jobsBean.list();
 		int count = 0;
@@ -321,5 +320,11 @@ public class QuartzManager  {
 		}
 		log.info("已启动定时任务个数：{}", count);
 	}
+
+	public static Collection getAllJobs() throws SchedulerException {
+		Collection<Scheduler> allSchedulers = gSchedulerFactory.getAllSchedulers();
+		return allSchedulers;
+	}
+
 
 }
