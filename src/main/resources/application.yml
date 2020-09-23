@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 50000
 #配置日志地址
 
 spring:
@@ -43,4 +43,8 @@ jwt:
   # 过期时间 单位秒 1天后过期=86400 7天后过期=604800
   expiration: 86400
   # 配置不需要认证的接口
-  antMatchers: /index/**,/login/**,/favicon.ico,/test1/**,/system/**
+  antMatchers: /swagger-resources/**,/v2/**,/webjars/**,/**/*.ico,/swagger-ui.html,/**/*.css,/**/*.jpg,/**/*.js,
+               /index/**,/login/**,/test1/**,/system/**,/images/**,/**/*.jsx,
+
+swagger2:
+  enable: true
