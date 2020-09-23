@@ -1,5 +1,5 @@
 server:
-  port: 50000
+  port: 8078
 #配置日志地址
 
 spring:
