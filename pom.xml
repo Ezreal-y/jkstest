@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <skipTests>true</skipTests>
+       <!-- <skipTests>true</skipTests>-->
     </properties>
 
     <dependencies>
@@ -119,5 +119,50 @@
             </plugin>
         </plugins>
     </build>
+   <!-- <profiles>
+        当我们需要把代码打包发布到生产环境时，执行 mvn clean package -D skipTests -P production &ndash;&gt;
+    </profiles>-->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- <profile.active>dev</profile.active>-->
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <!-- 打包资源 排除 -->
+                        <excludes>
+                            <exclude>prod/*</exclude>
+                        </excludes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <!-- <profile.active>dev</profile.active>-->
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <!-- 打包资源 排除 -->
+                        <excludes>
+                            <exclude>dev/*</exclude>
+                        </excludes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

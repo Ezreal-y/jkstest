@@ -1,5 +1,5 @@
 #!/bin/sh
-
+#Copy jar to target path
 BUILD_ID=DONTKILLME #后台执行
 
 #查询jar包pid
@@ -21,11 +21,12 @@ fi
 stop
 
 sleep 5s
-pwd
+
 #发布jar服务
 function start(){
   cd /home/soul/lgy/jksjar
-  nohup java -jar jkstest-0.0.1-SNAPSHOT.jar &
+  pwd
+  nohup java -jar -Dspring.profiles.active=dev jkstest-0.0.1-SNAPSHOT.jar &
   echo "项目启动完成"
 }
 
