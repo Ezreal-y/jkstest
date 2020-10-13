@@ -3,10 +3,15 @@ package com.jenkins.jkstest.controller;
 import com.jenkins.jkstest.security.beans.ResultBean;
 import com.jenkins.jkstest.security.utils.ResultUtil;
 import com.jenkins.jkstest.system.aop.Syslog;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -16,6 +21,7 @@ import java.util.HashMap;
  */
 @RestController
 @RequestMapping("/test1")
+@Api(tags = "订单系统接口", description = "订单系统模块相关接口")
 public class FirstContorller {
 
     @PostMapping("/parameter")
@@ -27,8 +33,8 @@ public class FirstContorller {
     }
 
     @PostMapping("/user")
+    @ApiOperation(value = "下单")
     public ResultBean testUseTime() throws InterruptedException {
-        Thread.sleep(2000);
         return ResultUtil.ok();
     }
 }

@@ -2,7 +2,6 @@ package com.jenkins.jkstest.security.common.listener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.boot.context.event.ApplicationPreparedEvent;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -32,7 +31,7 @@ public class ApplicationStartup implements ApplicationListener {
         } else if (event instanceof ApplicationPreparedEvent) {
             // 初始化完成
         } else if (event instanceof ContextRefreshedEvent) {
-            logger.info("项目启动中");
+            logger.info("project start...");
 
             // 应用刷新
         } else if (event instanceof ApplicationReadyEvent) {
@@ -41,14 +40,16 @@ public class ApplicationStartup implements ApplicationListener {
         } else if (event instanceof ContextStartedEvent) {
             //应用启动，需要在代码动态添加监听器才可捕获
         } else if (event instanceof ContextStoppedEvent) {
-            logger.info("项目停止...");
+            logger.info("project stop...");
             // 应用停止
         } else if (event instanceof ContextClosedEvent) {
             // 应用关闭 hook method kill -9无效
             // mailService.sendSysInfo("程序关闭");
-            logger.info("应用关闭...");
+            logger.info("project shutdown...");
         } else {
             //logger.info("");
         }
     }
+
+
 }

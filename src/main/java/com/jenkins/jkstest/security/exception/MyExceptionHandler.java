@@ -28,11 +28,8 @@ public class MyExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public @ResponseBody
     Map<String, Object> customException(Exception e) {
-        //e.printStackTrace();
-        //log.error("err->{}", e.toString());
         log.error("err->", e);
         log.error("err->", e.getMessage());
-
         Map<String, Object> map = new HashMap<>(2);
         map.put("code", "505");
         map.put("msg1",e.getMessage());

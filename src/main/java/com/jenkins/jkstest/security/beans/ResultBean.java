@@ -1,15 +1,17 @@
 package com.jenkins.jkstest.security.beans;
 
 import lombok.Data;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.Serializable;
 
 /**
  * @author l
  * @date 2020/6/11 16:06
- * @description
+ * @description 返回泛型类
  */
 @Data
+@ApiIgnore
 public class ResultBean<T> implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
@@ -23,6 +25,7 @@ public class ResultBean<T> implements Serializable {
     /**
      * 结果集
      */
+
     private T data;
 
 }

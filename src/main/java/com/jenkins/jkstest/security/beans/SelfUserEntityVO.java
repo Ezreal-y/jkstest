@@ -1,5 +1,6 @@
 package com.jenkins.jkstest.security.beans;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,8 +15,8 @@ import java.util.Collection;
  */
 
 @Data
-public class SelfUserEntityVO implements Serializable, UserDetails {
-    private static final long serialVersionUID = 1L;
+public class SelfUserEntityVO implements  UserDetails {
+    private static final long serialVersionUID = -6998605030151006442L;
 
     /**
      * 用户ID

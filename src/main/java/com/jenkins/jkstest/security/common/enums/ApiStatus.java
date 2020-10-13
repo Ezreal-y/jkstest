@@ -5,7 +5,7 @@ import lombok.Getter;
 
 import javax.servlet.http.HttpServletResponse;
 
-/**
+/** 状态枚举
  * @author l
  * @createTime 2019-05-11 00:52
  */
@@ -14,7 +14,7 @@ public enum ApiStatus  {
     /**
      * 操作成功
      */
-    SUCCESS(HttpServletResponse.SC_OK, "操作成功"),
+    SUCCESS(HttpServletResponse.SC_OK, "success"),
 
     /**
      * 业务异常
